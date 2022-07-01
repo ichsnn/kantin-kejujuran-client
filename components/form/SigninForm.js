@@ -5,13 +5,12 @@ import Link from "next/link";
 const SigninForm = (props) => {
   const [formState, setFormState] = useState({ id: "", password: "" });
 
-  const {signIn} = useAuth();
+  const { signIn } = useAuth();
 
   const handleSignIn = async (e) => {
     e.preventDefault(e);
 
-    const user = await signIn(formState);
-    console.log(user)
+    await signIn(formState);
   };
 
   const onIDChange = (e) => {

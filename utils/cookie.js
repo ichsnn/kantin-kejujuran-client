@@ -6,7 +6,7 @@ export const getCookies = (context) => {
 
 export const updateCookies = (token, refreshToken, context) => {
   // max age one day
-  const maxAge = 60 * 60 * 24; // 1 day
+  const maxAge = 60 * 60 * 24; // 30 days
   const path = "/";
 
   setCookie(context, "token", token, {
