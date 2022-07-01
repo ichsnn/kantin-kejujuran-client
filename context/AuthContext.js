@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
-import { API } from "../services/apiClient";
+import { api } from "../services/apiClient";
 import { cleanCookies, getCookies, updateCookies } from "../utils/cookie";
 
 const AuthContextData = {
   signIn: Promise,
   isAuthenticated: false,
+  user: undefined
 };
 
 const AuthContext = createContext({ AuthContextData });
@@ -16,7 +17,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const signIn = async (formState) => {
     try {
-      const { data } = await API.post("/api/auth/signin", {
+      const { data } = await api.post("/api/auth/signin", {
         id: formState.id,
         password: formState.password,
       });
@@ -36,13 +37,12 @@ export const AuthContextProvider = ({ children }) => {
     const { token } = cookies;
     if (token) {
       try {
+        const {data} = await api.get('/api/user/auth');
+        setUser(data);
       } catch (error) {
         setUser(undefined);
-
         cleanCookies();
         router.push("/");
-
-        console.log("Error firstvisit function");
       }
     }
   };
@@ -52,7 +52,7 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signIn, isAuthenticated: !!user }}>
+    <AuthContext.Provider value={{ signIn, isAuthenticated: !!user, user }}>
       {children}
     </AuthContext.Provider>
   );

@@ -2,18 +2,7 @@ import Head from "next/head";
 import Header from "../components/Header";
 import { setupAPIClient } from "../services/api";
 
-export const getServerSideProps = (context) => {
-  const apiClient = setupAPIClient(context)
-  console.log(apiClient)
-  return {
-    props: {
-      user: null
-    }
-  }
-}
-
-export default function Home(props) {
-  console.log(props)
+export default function Home() {
   return (
     <div>
       <Head>
