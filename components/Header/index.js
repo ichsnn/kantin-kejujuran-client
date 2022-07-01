@@ -60,7 +60,7 @@ const HeaderComponent = (props) => {
             </div>
             <div className="flex items-center gap-3 pl-4">
               <ButtonLink to="/signin" name="Sign In" customColor={"text-white"}/>
-              <ButtonLink to="/signup" name="Sign Up" customColor={"text-sky-600 bg-white"}/>
+              <ButtonLink to="/signup" name="Sign Up" customColor={"text-sky-500 bg-white"}/>
             </div>
           </div>
         </div>

@@ -27,8 +27,7 @@ export const AuthContextProvider = ({ children }) => {
       router.push("/");
       return data;
     } catch (error) {
-      console.log("Error signing in");
-      return null;
+      return error;
     }
   };
 
