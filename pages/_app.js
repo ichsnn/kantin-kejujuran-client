@@ -1,12 +1,12 @@
-import '../styles/globals.css'
-import {SessionProvider} from "next-auth/react"
+import "../styles/globals.css";
+import { AuthContextProvider } from "../context/AuthContext";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <SessionProvider session={pageProps.session} >
+    <AuthContextProvider>
       <Component {...pageProps} />
-    </SessionProvider>
-  )
+    </AuthContextProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;

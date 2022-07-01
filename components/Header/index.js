@@ -8,14 +8,16 @@ const HeaderComponent = () => {
       <dir className="container">
         <div className="flex justify-between items-center gap-4">
           <div className="flex flex-1 items-center gap-5">
-            <h1 className="font-work-sans text-3xl text-white font-bold relative mr-10 whitespace-nowrap">
-              hocan.
-            </h1>
+            <Link href={'/'}>
+            <a className="font-work-sans text-3xl text-white font-bold relative mr-10 whitespace-nowrap">
+              canteen.
+            </a>
+            </Link>
             <nav className="w-full">
               <Search />
             </nav>
           </div>
-          <div className="hidden md:flex items-center divide-x-2 divide-white gap-4">
+          <div className="flex items-center divide-x-2 divide-white gap-4">
             <div className="flex items-center gap-4">
               <button className="text-white relative">
                 <svg

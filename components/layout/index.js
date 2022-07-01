@@ -1,19 +1,8 @@
+import React from "react";
 import Head from "next/head";
-import Header from "../components/Header";
-import { setupAPIClient } from "../services/api";
+import Header from "../Header";
 
-export const getServerSideProps = (context) => {
-  const apiClient = setupAPIClient(context)
-  console.log(apiClient)
-  return {
-    props: {
-      user: null
-    }
-  }
-}
-
-export default function Home(props) {
-  console.log(props)
+const index = ({ children }) => {
   return (
     <div>
       <Head>
@@ -33,6 +22,10 @@ export default function Home(props) {
         />
       </Head>
       <Header />
+      <main>{children}</main>
+      <footer></footer>
     </div>
   );
-}
+};
+
+export default index;
