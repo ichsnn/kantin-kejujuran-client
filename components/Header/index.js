@@ -59,8 +59,8 @@ const HeaderComponent = (props) => {
               <Cart />
             </div>
             <div className="flex items-center gap-3 pl-4">
-              <ButtonLink to="/signin" name="Sign In" customColor={"text-white"}/>
-              <ButtonLink to="/signup" name="Sign Up" customColor={"text-sky-500 bg-white"}/>
+              <ButtonLink to="/account/signin" name="Sign In" customColor={"text-white"}/>
+              <ButtonLink to="/account/signup" name="Sign Up" customColor={"text-sky-500 bg-white"}/>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { cleanCookies } from "../../utils/cookie";
+import { cleanCookies, getCookies } from "../../utils/cookie";
 import { Router, useRouter } from "next/router";
 
 const Profile = ({ user }) => {
@@ -40,7 +40,9 @@ const Profile = ({ user }) => {
               </Link>
             </div>
             <div>
-              <button onClick={handleLogout} className="text-start">Sign Out</button>
+              <button onClick={handleLogout} className="text-start">
+                Sign Out
+              </button>
             </div>
           </div>
         </div>

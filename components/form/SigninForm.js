@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import Link from "next/link";
 
 import {
-  InvalidAccount,
+  InvalidError,
   InvalidID,
   InvalidIDEmpty,
   InvalidIDLength,
@@ -14,9 +14,11 @@ import idValidation from "../../utils/idValidation";
 
 const SigninForm = (props) => {
   const [formState, setFormState] = useState({ id: "", password: "" });
-  const inputPassword = useRef();
+
   const inputID = useRef();
+  const inputPassword = useRef();
   const [isLoading, setIsLoading] = useState(false);
+
   const [validation, setValidation] = useState({
     id: true,
     id_empty: true,
@@ -24,6 +26,7 @@ const SigninForm = (props) => {
     password_empty: true,
     password_length: true,
   });
+  
   const [error, setError] = useState("");
 
   const { signIn } = useAuth();
@@ -41,6 +44,7 @@ const SigninForm = (props) => {
         id_length: true,
         password_length: true,
       });
+      inputID.current.focus();
     } else if (
       id &&
       id_empty &&
@@ -49,18 +53,18 @@ const SigninForm = (props) => {
       password_length
     ) {
       const result = await signIn(formState);
-      if (result?.response?.status > 300) {
+      if (result?.response?.status >= 400) {
         setError(result.response.data.message);
       } else if (result?.code === "ERR_NETWORK") {
         setError(result.message);
       }
     }
-    setIsLoading(false);
     if (!id || !id_empty || !id_length) {
       inputID.current.focus();
     } else if (!password_empty || !password_length) {
-      inputID.current.focus();
+      inputPassword.current.focus();
     }
+    setIsLoading(false);
   };
 
   const onIDChange = (e) => {
@@ -173,7 +177,7 @@ const SigninForm = (props) => {
                 className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm bg-gray-100 focus:outline-sky-500"
                 placeholder="Enter password"
                 onChange={onPasswordChange}
-                ref={inputID}
+                ref={inputPassword}
               />
             </div>
             <div className="mt-2">
@@ -187,11 +191,11 @@ const SigninForm = (props) => {
           >
             {isLoading ? "Loading..." : "Sign in"}
           </button>
-          <InvalidAccount message={error} />
+          <InvalidError message={error} />
           <p className="text-sm text-center text-gray-500">
             <span>No account?</span>{" "}
             <span>
-              <Link href="/signup">
+              <Link href="/account/signup">
                 <a className="underline">Sign up</a>
               </Link>
             </span>

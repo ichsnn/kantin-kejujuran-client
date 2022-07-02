@@ -34,8 +34,20 @@ export const InvalidPasswordEmpty = () => {
   );
 }
 
-export const InvalidAccount = ({message}) => {
+export const InvalidError = ({message}) => {
   return (
     <div className="text-center text-red-500 text-sm">{message}</div>
+  );
+}
+
+export const InvalidNameEmpty = () => {
+  return (
+    <div className="text-red-500 text-xs">Name is required</div>
+  );
+}
+
+export const InvalidPasswordNotMatch = () => {
+  return (
+    <div className="text-red-500 text-xs">Password does not match</div>
   );
 }
