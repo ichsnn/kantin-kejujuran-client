@@ -49,17 +49,16 @@ const SigninForm = (props) => {
       password_length
     ) {
       const result = await signIn(formState);
-      console.log(result)
       if (result?.response?.status > 300) {
         setError(result.response.data.message);
-      } else if(result?.code === 'ERR_NETWORK') {
+      } else if (result?.code === "ERR_NETWORK") {
         setError(result.message);
       }
     }
     setIsLoading(false);
-    if(!id || !id_empty || !id_length) {
+    if (!id || !id_empty || !id_length) {
       inputID.current.focus();
-    } else if(!password_empty || !password_length) {
+    } else if (!password_empty || !password_length) {
       inputID.current.focus();
     }
   };
@@ -129,7 +128,7 @@ const SigninForm = (props) => {
   return (
     <div className="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
       <div className="max-w-lg mx-auto">
-        <h1 className="text-2xl font-bold text-center text-sky-500 sm:text-3xl">
+        <h1 className="font-bold text-center text-sky-500 text-3xl">
           Sign in to your account
         </h1>
         <form
