@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
 import Link from "next/link";
 
@@ -14,6 +14,8 @@ import idValidation from "../../utils/idValidation";
 
 const SigninForm = (props) => {
   const [formState, setFormState] = useState({ id: "", password: "" });
+  const inputPassword = useRef();
+  const inputID = useRef();
   const [isLoading, setIsLoading] = useState(false);
   const [validation, setValidation] = useState({
     id: true,
@@ -52,6 +54,11 @@ const SigninForm = (props) => {
       }
     }
     setIsLoading(false);
+    if(!id || !id_empty || !id_length) {
+      inputID.current.focus();
+    } else if(!password_empty || !password_length) {
+      inputID.current.focus();
+    }
   };
 
   const onIDChange = (e) => {
@@ -141,6 +148,7 @@ const SigninForm = (props) => {
                 placeholder="Enter student id"
                 autoComplete="off"
                 onChange={onIDChange}
+                ref={inputID}
               />
             </div>
             <div className="mt-2">
@@ -163,6 +171,7 @@ const SigninForm = (props) => {
                 className="w-full p-4 text-sm border-gray-200 rounded-lg shadow-sm bg-gray-100 focus:outline-sky-500"
                 placeholder="Enter password"
                 onChange={onPasswordChange}
+                ref={inputID}
               />
             </div>
             <div className="mt-2">
