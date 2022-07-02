@@ -49,8 +49,11 @@ const SigninForm = (props) => {
       password_length
     ) {
       const result = await signIn(formState);
-      if (result.response?.status > 300) {
+      console.log(result)
+      if (result?.response?.status > 300) {
         setError(result.response.data.message);
+      } else if(result?.code === 'ERR_NETWORK') {
+        setError(result.message);
       }
     }
     setIsLoading(false);
