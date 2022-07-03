@@ -3,6 +3,10 @@ import Layout from "../components/layout";
 import ItemCard from "../components/item/ItemCard";
 import Pagination from "../components/item/pagination";
 import minecraft from "../public/minecraft.png";
+import { useState } from "react";
+import SellItemForm from "../components/form/SelItemForm";
+import { useAuth } from "../context/AuthContext";
+import { AlertNotSignIn } from "../components/alert";
 
 export const getServerSideProps = async (context) => {
   try {
@@ -25,12 +29,35 @@ export const getServerSideProps = async (context) => {
 };
 
 export default function Home(props) {
+  const [showSell, setShowSell] = useState(false);
+  const [showAlertSignin, setShowAlertSignin] = useState(false);
+
+  const handleSellShow = () => {
+    if (props.isSignedIn) setShowSell(true);
+    else {
+      setShowAlertSignin(true);
+    }
+  };
+
+  const handleSellCancel = () => {
+    setShowSell(false);
+  };
+
+  const handleCloseAlert = () => {
+    console.log('p')
+    setShowAlertSignin(false);
+  }
+
   return (
     <Layout {...props}>
+      {showAlertSignin && <AlertNotSignIn handleCloseAlert={handleCloseAlert} />}
       <div className="container mt-4 flex flex-col md:flex-row gap-6">
         <div className="flex md:hidden gap-4 whitespace-nowrap justify-between items-center">
           <div>
-            <button className="flex md:hidden bg-sky-500 text-white font-bold px-6 py-1 rounded-lg">
+            <button
+              onClick={handleSellShow}
+              className="flex md:hidden bg-sky-500 text-white font-bold px-6 py-1 rounded-lg"
+            >
               Sell Item
             </button>
           </div>
@@ -49,7 +76,10 @@ export default function Home(props) {
           </div>
         </div>
         <div className="space-y-6">
-          <button className="hidden md:flex bg-sky-500 text-white font-bold px-6 py-1 rounded-lg">
+          <button
+            onClick={handleSellShow}
+            className="hidden md:flex bg-sky-500 text-white font-bold px-6 py-1 rounded-lg"
+          >
             Sell Item
           </button>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -80,11 +110,16 @@ export default function Home(props) {
             <div className="cursor-pointer hover:underline">Oldest</div>
             <div className="cursor-pointer hover:underline">Name: A-Z</div>
             <div className="cursor-pointer hover:underline">Name: Z-A</div>
-            <div className="cursor-pointer hover:underline">Price: Low-High</div>
-            <div className="cursor-pointer hover:underline">Price: High-Low</div>
+            <div className="cursor-pointer hover:underline">
+              Price: Low-High
+            </div>
+            <div className="cursor-pointer hover:underline">
+              Price: High-Low
+            </div>
           </div>
         </div>
       </div>
+      {showSell && <SellItemForm onCancelSellItemClick={handleSellCancel} />}
     </Layout>
   );
 }

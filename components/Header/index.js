@@ -1,28 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Search from "./Search";
 import Logo from "./Logo";
 import Balance from "./Balance";
 import Profile from "./Profile";
 import ButtonLink from "./ButtonLink";
-import SellItemForm from "../item/selItem";
 import Menu from "./Menu";
 
 const HeaderComponent = (props) => {
   const { isSignedIn, user } = props;
-  const [isSell, setIsSell] = useState(false);
-
-  const onSellItemClick = () => {
-    setIsSell(true);
-  };
-
-  const onCancelSellItemClick = () => {
-    setIsSell(false);
-  };
-
-  useEffect(() => {
-    console.log(isSell);
-  });
 
   if (isSignedIn) {
     return (
@@ -48,9 +33,6 @@ const HeaderComponent = (props) => {
             </div>
           </div>
         </dir>
-        {isSell && (
-          <SellItemForm onCancelSellItemClick={onCancelSellItemClick} />
-        )}
       </header>
     );
   }
@@ -83,7 +65,6 @@ const HeaderComponent = (props) => {
           <Menu />
         </div>
       </div>
-      {isSell && <SellItemForm onCancelSellItemClick={onCancelSellItemClick} />}
     </header>
   );
 };
