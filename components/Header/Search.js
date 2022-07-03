@@ -2,7 +2,7 @@ import React from "react";
 
 const SearchComponents = () => {
   return (
-    <form className="flex md:flex-1 items-center">
+    <form className="flex flex-1 items-center">
       <div className="relative w-full">
         <input
           className="h-10 pl-4 pr-10 text-md placeholder-gray-400 border-gray-300 rounded-lg focus:z-10 w-full border focus:outline-sky-500"

@@ -31,10 +31,10 @@ const SellItemForm = ({onCancelSellItemClick}) => {
     }
   };
   return (
-      <div className="fixed z-50 top-0 bg-black bg-opacity-10 h-full w-full left-1/2 -translate-x-1/2">
-        <div className="max-w-4xl border mx-auto relative top-36 p-4 rounded-lg shadow-md space-y-4 bg-white">
-          <div className="flex gap-4 items-start">
-            <div className="flex gap-4 flex-col">
+      <div className="absolute z-50 top-0 bg-black bg-opacity-10 h-full w-full left-1/2 -translate-x-1/2 p-4">
+        <div className="max-w-4xl border mx-auto relative top-20 p-4 rounded-lg shadow-md space-y-4 bg-white">
+          <div className="flex gap-4 items-start flex-col md:flex-row">
+            <div className="flex gap-4 flex-col w-full md:w-auto">
               <label htmlFor="item_image" hidden>Image</label>
               <input
                 type={"file"}
@@ -57,7 +57,7 @@ const SellItemForm = ({onCancelSellItemClick}) => {
                 )}
               </div>
             </div>
-            <div className="flex-1 flex flex-col space-y-4">
+            <div className="flex-1 flex flex-col space-y-4 w-full md:w-auto">
               <div>
                 <label
                   htmlFor="item_name"

@@ -32,7 +32,7 @@ const Balance = ({ value }) => {
           />
         </svg>
         <div className="font-work-sans font-semibold max-w-[15ch] overflow-hidden text-ellipsis whitespace-nowrap">
-          Rp{Number(value).toLocaleString()}
+          Rp{value ? Number(value).toLocaleString() : "0"}
         </div>
         <div>
           <svg

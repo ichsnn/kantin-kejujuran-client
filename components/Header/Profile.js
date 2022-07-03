@@ -28,7 +28,7 @@ const Profile = ({ user }) => {
     >
       <div className="text-sky-500 font-roboto-mono font-bold cursor-pointer">
         <div className="bg-white rounded-full w-8 h-8 flex items-center justify-center">
-          {String(user.name)[0].toUpperCase()}
+          {user ? String(user.name)[0].toUpperCase() : "U"}
         </div>
       </div>
       <div className={dropdown ? "block" : "hidden"}>
