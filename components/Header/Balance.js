@@ -1,6 +1,11 @@
+import Link from "next/link";
 import React, { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+import DepositForm from "../form/DepositForm";
 
 const Balance = ({ value }) => {
+  const { user } = useAuth();
+
   const [dropdown, setDropdown] = useState(false);
 
   const onHoverIn = () => {
@@ -32,7 +37,7 @@ const Balance = ({ value }) => {
           />
         </svg>
         <div className="font-work-sans font-semibold max-w-[15ch] overflow-hidden text-ellipsis whitespace-nowrap">
-          Rp{value ? Number(value).toLocaleString() : "0"}
+          Rp{user.balance ? Number(user.balance).toLocaleString() : "0"}
         </div>
         <div>
           <svg
@@ -52,8 +57,12 @@ const Balance = ({ value }) => {
       <div className={dropdown ? "block" : "hidden"}>
         <div className="absolute right-0 pt-3">
           <div className="divide-y text-gray-600 flex flex-col gap-1 whitespace-nowrap bg-white shadow-md rounded-md px-3 py-2">
-            <button className="text-start">Add Balance</button>
-            <button className="text-start">Withdraw Balance</button>
+            <Link href={'/account/deposit'}>
+            <a className="text-start">Add Balance</a>
+            </Link>
+            <Link href={'/account/withdraw'}>
+            <a className="text-start">Withdraw Balance</a>
+            </Link>
           </div>
         </div>
       </div>

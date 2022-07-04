@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { cleanCookies, getCookies } from "../../utils/cookie";
-import { Router, useRouter } from "next/router";
+import { cleanCookies } from "../../utils/cookie";
+import { useRouter } from "next/router";
+import {useAuth} from  "../../context/AuthContext"
 
-const Profile = ({ user }) => {
+const Profile = () => {
+  const {user, signOut} = useAuth();
   const [dropdown, setDropdown] = useState(false);
   const router = useRouter();
 
@@ -15,9 +17,8 @@ const Profile = ({ user }) => {
     setDropdown(false);
   };
 
-  const handleLogout = () => {
-    cleanCookies();
-    router.push("/");
+  const handleLogout = async () => {
+    await signOut() ;
   };
 
   return (

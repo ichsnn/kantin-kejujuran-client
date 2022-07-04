@@ -6,28 +6,10 @@ import { useEffect, useState } from "react";
 import SellItemForm from "../components/form/SelItemForm";
 import { AlertNotSignIn } from "../components/alert";
 import axios from "axios";
-
-export const getServerSideProps = async (context) => {
-  try {
-    const apiClient = setupAPIClient(context);
-    const user = await (await apiClient.get("/api/user/home")).data;
-    return {
-      props: {
-        isSignedIn: true,
-        user: user,
-      },
-    };
-  } catch (error) {
-    return {
-      props: {
-        isSigned: false,
-        user: null,
-      },
-    };
-  }
-};
+import { useAuth } from "../context/AuthContext";
 
 export default function Home(props) {
+  const { isAuthenticated } = useAuth();
   const [showSell, setShowSell] = useState(false);
   const [showAlertSignin, setShowAlertSignin] = useState(false);
   const [item, setItem] = useState(null);
@@ -43,7 +25,7 @@ export default function Home(props) {
   }, [])
 
   const handleSellShow = () => {
-    if (props.isSignedIn) setShowSell(true);
+    if (isAuthenticated) setShowSell(true);
     else {
       setShowAlertSignin(true);
     }
@@ -58,7 +40,7 @@ export default function Home(props) {
   }
 
   return (
-    <Layout {...props}>
+    <Layout>
       {showAlertSignin && <AlertNotSignIn handleCloseAlert={handleCloseAlert} />}
       <div className="container mt-4 flex flex-col md:flex-row gap-6">
         <div className="flex md:hidden gap-4 whitespace-nowrap justify-between items-center">
@@ -84,7 +66,7 @@ export default function Home(props) {
             </select>
           </div>
         </div>
-        <div className="space-y-6">
+        <div className="space-y-6 flex-1">
           <button
             onClick={handleSellShow}
             className="hidden md:flex bg-sky-500 text-white font-bold px-6 py-1 rounded-lg"

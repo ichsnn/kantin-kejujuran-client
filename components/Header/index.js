@@ -5,11 +5,12 @@ import Balance from "./Balance";
 import Profile from "./Profile";
 import ButtonLink from "./ButtonLink";
 import Menu from "./Menu";
+import { useAuth } from "../../context/AuthContext";
 
-const HeaderComponent = (props) => {
-  const { isSignedIn, user } = props;
+const HeaderComponent = () => {
+  const {isAuthenticated} = useAuth();
 
-  if (isSignedIn) {
+  if (isAuthenticated) {
     return (
       <header className="border-b-2 pt-6 pb-5 bg-sky-500 z-10">
         <dir className="container">
@@ -23,13 +24,13 @@ const HeaderComponent = (props) => {
             </div>
             <div className="hidden md:flex items-center divide-x-2 divide-white gap-4">
               <div className="flex items-center gap-3 pl-4">
-                <Balance value={user.balance} />
-                <Profile user={user} />
+                <Balance />
+                <Profile />
               </div>
             </div>
             <div className="flex md:hidden items-center gap-4">
-              <Balance value={user.balance} />
-              <Profile value={user} />
+              <Balance />
+              <Profile/>
             </div>
           </div>
         </dir>

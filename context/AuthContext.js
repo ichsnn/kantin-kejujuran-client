@@ -6,6 +6,7 @@ import { cleanCookies, getCookies, updateCookies } from "../utils/cookie";
 const AuthContextData = {
   signIn: Promise,
   signUp: Promise,
+  signOut: Promise,
   isAuthenticated: false,
   user: undefined,
 };
@@ -22,10 +23,9 @@ export const AuthContextProvider = ({ children }) => {
         id: formState.id,
         password: formState.password,
       });
-      const { id, name, access_token } = data;
+      const { access_token } = data;
       updateCookies(access_token, access_token);
-      setUser({ id, name });
-      router.push("/");
+      router.reload();
       return data;
     } catch (error) {
       return error;
@@ -44,6 +44,12 @@ export const AuthContextProvider = ({ children }) => {
       return error;
     }
   };
+
+  const signOut = async () => {
+    cleanCookies();
+    setUser(undefined);
+    router.push('/')
+  }
 
   const handleFirstVisit = async () => {
     const cookies = getCookies();
@@ -65,7 +71,7 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signIn, signUp, isAuthenticated: !!user, user }}>
+    <AuthContext.Provider value={{ signIn, signUp, signOut, isAuthenticated: !!user, user }}>
       {children}
     </AuthContext.Provider>
   );
