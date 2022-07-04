@@ -21,7 +21,7 @@ export const updateCookies = (token, refreshToken, context) => {
 };
 
 export const cleanCookies = (context) => {
-  for (const token of ["token", "refreshToken"]) {
+  for (const token of ["token", "refreshToken"]) {    
     destroyCookie(context, token);
   }
 };

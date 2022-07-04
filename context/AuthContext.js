@@ -46,9 +46,11 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const signOut = async () => {
-    cleanCookies();
+    const access_token = "";
+    updateCookies(access_token, access_token);
     setUser(undefined);
-    router.push('/')
+    cleanCookies();
+    router.push('/account/signin')
   }
 
   const handleFirstVisit = async () => {
