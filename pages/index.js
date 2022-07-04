@@ -2,20 +2,19 @@ import { setupAPIClient } from "../services/api";
 import Layout from "../components/layout";
 import ItemCard from "../components/item/ItemCard";
 import Pagination from "../components/item/pagination";
-import minecraft from "../public/minecraft.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SellItemForm from "../components/form/SelItemForm";
-import { useAuth } from "../context/AuthContext";
 import { AlertNotSignIn } from "../components/alert";
+import axios from "axios";
 
 export const getServerSideProps = async (context) => {
   try {
     const apiClient = setupAPIClient(context);
-    const { data } = await apiClient.get("/api/user/home");
+    const user = await (await apiClient.get("/api/user/home")).data;
     return {
       props: {
         isSignedIn: true,
-        user: data,
+        user: user,
       },
     };
   } catch (error) {
@@ -31,6 +30,17 @@ export const getServerSideProps = async (context) => {
 export default function Home(props) {
   const [showSell, setShowSell] = useState(false);
   const [showAlertSignin, setShowAlertSignin] = useState(false);
+  const [item, setItem] = useState(null);
+
+  useEffect(() => {
+    async function fetchItem (){
+        const itemOnSell = await (await axios.get('http://localhost:5000/api/item/onsell')).data;
+        if(itemOnSell) {
+          setItem(itemOnSell);
+        }
+    }
+    fetchItem()
+  }, [])
 
   const handleSellShow = () => {
     if (props.isSignedIn) setShowSell(true);
@@ -44,7 +54,6 @@ export default function Home(props) {
   };
 
   const handleCloseAlert = () => {
-    console.log('p')
     setShowAlertSignin(false);
   }
 
@@ -83,21 +92,9 @@ export default function Home(props) {
             Sell Item
           </button>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
+            {item?.map((item) => {
+              return <ItemCard key={item.id} item={item} src={item.img_url} />;
+            })}
           </div>
           <div>
             <Pagination />

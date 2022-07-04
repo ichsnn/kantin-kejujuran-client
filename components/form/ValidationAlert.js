@@ -1,18 +1,26 @@
+export const InvalidAlert = ({message}) => {
+  return (
+    <div className="bg-red-500 text-white text-sm rounded-lg px-4 py-2 m-2">
+      {message}
+    </div>
+  )
+}
+
 export const InvalidID = () => {
   return (
-    <div className="text-red-500 text-xs">Invalid Student ID</div>
+    <InvalidAlert message="Invalid ID" />
   );
 }
 
 export const InvalidIDEmpty = () => {
   return (
-    <div className="text-red-500 text-xs">Student ID is required</div>
+    <InvalidAlert message="ID cannot be empty" />
   );
 }
 
 export const InvalidIDLength = () => {
   return (
-    <div className="text-red-500 text-xs">Student ID must have 5 characters</div>
+    <InvalidAlert message="Student ID must have 5 characters" />
   );
 }
 
@@ -50,4 +58,28 @@ export const InvalidPasswordNotMatch = () => {
   return (
     <div className="text-red-500 text-xs">Password does not match</div>
   );
+}
+
+export const InvalidImage = () => {
+  return (
+    <div className="text-red-500 text-xs">Image must have 1:1 aspect ratio</div>
+  );
+}
+
+export const InvalidImageEmpty = () => {
+  return (
+    <div className="text-red-500 text-xs">Image is required</div>
+  );
+}
+
+export const InvalidDescriptionEmpty = () => {
+  return (
+    <div className="text-red-500 text-xs">Description is required</div>
+  )
+}
+
+export const InvalidPriceEmpty = () => {
+  return (
+    <div className="text-red-500 text-xs">Price is required</div>
+  )
 }
