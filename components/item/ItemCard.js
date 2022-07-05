@@ -1,6 +1,5 @@
 import React from "react";
 import itemImage from "../../public/bear-brand.webp";
-import Image from "next/image";
 
 const ItemCard = ({ item, src, handleCardClick }) => {
   return (

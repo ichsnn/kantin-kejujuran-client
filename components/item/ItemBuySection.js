@@ -1,10 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { api } from "../../services/apiClient";
-import { InvalidAlert } from "../form/ValidationAlert";
 
 const ItemBuySection = ({ item, handleClose }) => {
   const { isAuthenticated } = useAuth();

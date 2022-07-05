@@ -1,7 +1,5 @@
-import { setupAPIClient } from "../services/api";
 import Layout from "../components/layout";
 import ItemCard from "../components/item/ItemCard";
-import Pagination from "../components/item/pagination";
 import { useEffect, useState } from "react";
 import SellItemForm from "../components/form/SelItemForm";
 import { AlertNotSignIn } from "../components/alert";
