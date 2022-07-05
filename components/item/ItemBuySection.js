@@ -30,7 +30,7 @@ const ItemBuySection = ({ item, handleClose }) => {
       <div className="absolute bottom-0 md:top-0 md:right-0 w-screen md:w-96 p-5 bg-white rounded-xl shadow-2xl border overflow-y-scroll h-2/3 md:h-full">
         {error && (
           <div className="relative">
-            <div className="fixed bottom-0 left-0 font-medium">
+            <div className="fixed top-0 left-0 font-medium">
               <div className="bg-red-500 text-white text-lg rounded-lg px-4 py-2 m-2">
                 {!isAuthenticated ? (
                   <span>
@@ -45,7 +45,7 @@ const ItemBuySection = ({ item, handleClose }) => {
         )}
         <div className="flex flex-col md:flex-col space-x-6 justify-center space-y-6 mx-auto">
           <div className="shadow-md rounded-md overflow-hidden">
-            <img src={`http://localhost:5000/${item.img_url}`} alt="" />
+            <img src={`http://localhost:5000/${item.img_url}`} alt="" className="w-full"/>
           </div>
           <div className="flex-1 space-y-4">
             <div>

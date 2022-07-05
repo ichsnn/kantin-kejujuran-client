@@ -16,6 +16,12 @@ export default function Home(props) {
   const [buyItem, setBuyItem] = useState(null);
   const [showAlertSignin, setShowAlertSignin] = useState(false);
   const [item, setItem] = useState(null);
+  const [soryBy, setSortBy] = useState("");
+
+  const onSortChange = async (e) => {
+    const sortedStr = e.target.value;
+    setSortBy(sortedStr);
+  };
 
   useEffect(() => {
     async function fetchItem() {
@@ -28,6 +34,17 @@ export default function Home(props) {
     }
     fetchItem();
   }, []);
+
+  useEffect(() => {
+    async function fetchItem() {
+      const item_url = `http://localhost:5000/api/item/onsell/${soryBy}`;
+      const itemOnSellSort = await (await axios.get(item_url)).data;
+      if (itemOnSellSort) {
+        setItem(itemOnSellSort);
+      }
+    }
+    fetchItem();
+  }, [soryBy]);
 
   const handleSellShow = () => {
     if (isAuthenticated) setShowSell(true);
@@ -60,16 +77,19 @@ export default function Home(props) {
             </button>
           </div>
           <div>
-            <select className="font-medium border rounded-md text-sm focus:outline-sky-500">
+            <select
+              onChange={onSortChange}
+              className="font-medium border rounded-md text-sm focus:outline-sky-500"
+            >
               <option value="" className="font-bold">
                 Relevance
               </option>
-              <option value="">Latest</option>
-              <option value="">Oldest</option>
-              <option value="">Name: A-Z</option>
-              <option value="">Name: Z-A</option>
-              <option value="">Price: Low-High</option>
-              <option value="">Price: High-Low</option>
+              <option value="latest">Latest</option>
+              <option value="oldest">Oldest</option>
+              <option value="az">Name: A-Z</option>
+              <option value="za">Name: Z-A</option>
+              <option value="low">Price: Low-High</option>
+              <option value="high">Price: High-Low</option>
             </select>
           </div>
         </div>
@@ -102,14 +122,40 @@ export default function Home(props) {
         <div className="hidden md:block space-y-4 whitespace-nowrap pr-9">
           <h2 className="font-bold mb-1 text-gray-800">Relevance</h2>
           <div className="text-sm flex flex-col gap-1 text-gray-700">
-            <div className="cursor-pointer hover:underline">Latest</div>
-            <div className="cursor-pointer hover:underline">Oldest</div>
-            <div className="cursor-pointer hover:underline">Name: A-Z</div>
-            <div className="cursor-pointer hover:underline">Name: Z-A</div>
-            <div className="cursor-pointer hover:underline">
+            <div
+              className="cursor-pointer hover:underline"
+              onClick={() => setSortBy("latest")}
+            >
+              Latest
+            </div>
+            <div
+              className="cursor-pointer hover:underline"
+              onClick={() => setSortBy("oldest")}
+            >
+              Oldest
+            </div>
+            <div
+              className="cursor-pointer hover:underline"
+              onClick={() => setSortBy("az")}
+            >
+              Name: A-Z
+            </div>
+            <div
+              className="cursor-pointer hover:underline"
+              onClick={() => setSortBy("za")}
+            >
+              Name: Z-A
+            </div>
+            <div
+              className="cursor-pointer hover:underline"
+              onClick={() => setSortBy("low")}
+            >
               Price: Low-High
             </div>
-            <div className="cursor-pointer hover:underline">
+            <div
+              className="cursor-pointer hover:underline"
+              onClick={() => setSortBy("high")}
+            >
               Price: High-Low
             </div>
           </div>
