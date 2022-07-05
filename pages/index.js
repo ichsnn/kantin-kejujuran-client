@@ -6,8 +6,10 @@ import { AlertNotSignIn } from "../components/alert";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import ItemBuySection from "../components/item/ItemBuySection";
+import { URL_CONSTANT } from "../constant/url.constant";
 
 export default function Home(props) {
+  const BASE_URL = URL_CONSTANT.BASE_URL;
   const { isAuthenticated } = useAuth();
   const [showSell, setShowSell] = useState(false);
   const [showBuy, setShowBuy] = useState(false);
@@ -24,18 +26,18 @@ export default function Home(props) {
   useEffect(() => {
     async function fetchItem() {
       const itemOnSell = await (
-        await axios.get("http://localhost:5000/api/item/onsell")
+        await axios.get(`${BASE_URL}/api/item/onsell`)
       ).data;
       if (itemOnSell) {
         setItem(itemOnSell);
       }
     }
     fetchItem();
-  }, []);
+  }, [BASE_URL]);
 
   useEffect(() => {
     async function fetchItem() {
-      const item_url = `http://localhost:5000/api/item/onsell/${soryBy}`;
+      const item_url = `${BASE_URL}/api/item/onsell/${soryBy}`;
       const itemOnSellSort = await (await axios.get(item_url)).data;
       if (itemOnSellSort) {
         setItem(itemOnSellSort);

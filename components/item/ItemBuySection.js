@@ -2,17 +2,19 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { api } from "../../services/apiClient";
+import { URL_CONSTANT } from "../../constant/url.constant";
 
 const ItemBuySection = ({ item, handleClose }) => {
   const { isAuthenticated } = useAuth();
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const BASE_URL = URL_CONSTANT.BASE_URL;
   const handleBuyItemClick = async () => {
     try {
       await api.post("/api/item/buy", {
         id: item.id,
       });
-      setSuccess('Item successfully bought!');
+      setSuccess("Item successfully bought!");
       router.reload();
     } catch (error) {
       setError(error.response.data.message);
@@ -31,7 +33,11 @@ const ItemBuySection = ({ item, handleClose }) => {
               <div className="bg-red-500 text-white text-lg rounded-lg px-4 py-2 m-2">
                 {!isAuthenticated ? (
                   <span>
-                    Please <Link href="/account/signin"><a className="underline">sign in</a></Link> to buy item
+                    Please{" "}
+                    <Link href="/account/signin">
+                      <a className="underline">sign in</a>
+                    </Link>{" "}
+                    to buy item
                   </span>
                 ) : (
                   error
@@ -42,7 +48,11 @@ const ItemBuySection = ({ item, handleClose }) => {
         )}
         <div className="flex flex-col md:flex-col space-x-6 justify-center space-y-6 mx-auto">
           <div className="shadow-md rounded-md overflow-hidden">
-            <img src={`http://localhost:5000/${item.img_url}`} alt="" className="w-full"/>
+            <img
+              src={`${BASE_URL}/${item.img_url}`}
+              alt=""
+              className="w-full"
+            />
           </div>
           <div className="flex-1 space-y-4">
             <div>
