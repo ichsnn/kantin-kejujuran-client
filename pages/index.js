@@ -7,22 +7,27 @@ import SellItemForm from "../components/form/SelItemForm";
 import { AlertNotSignIn } from "../components/alert";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+import ItemBuySection from "../components/item/ItemBuySection";
 
 export default function Home(props) {
   const { isAuthenticated } = useAuth();
   const [showSell, setShowSell] = useState(false);
+  const [showBuy, setShowBuy] = useState(false);
+  const [buyItem, setBuyItem] = useState(null);
   const [showAlertSignin, setShowAlertSignin] = useState(false);
   const [item, setItem] = useState(null);
 
   useEffect(() => {
-    async function fetchItem (){
-        const itemOnSell = await (await axios.get('http://localhost:5000/api/item/onsell')).data;
-        if(itemOnSell) {
-          setItem(itemOnSell);
-        }
+    async function fetchItem() {
+      const itemOnSell = await (
+        await axios.get("http://localhost:5000/api/item/onsell")
+      ).data;
+      if (itemOnSell) {
+        setItem(itemOnSell);
+      }
     }
-    fetchItem()
-  }, [])
+    fetchItem();
+  }, []);
 
   const handleSellShow = () => {
     if (isAuthenticated) setShowSell(true);
@@ -37,11 +42,13 @@ export default function Home(props) {
 
   const handleCloseAlert = () => {
     setShowAlertSignin(false);
-  }
+  };
 
   return (
     <Layout>
-      {showAlertSignin && <AlertNotSignIn handleCloseAlert={handleCloseAlert} />}
+      {showAlertSignin && (
+        <AlertNotSignIn handleCloseAlert={handleCloseAlert} />
+      )}
       <div className="container mt-4 flex flex-col md:flex-row gap-6">
         <div className="flex md:hidden gap-4 whitespace-nowrap justify-between items-center">
           <div>
@@ -75,12 +82,22 @@ export default function Home(props) {
           </button>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {item?.map((item) => {
-              return <ItemCard key={item.id} item={item} src={item.img_url} />;
+              return (
+                <ItemCard
+                  handleCardClick={() => {
+                    setShowBuy(true);
+                    setBuyItem(item);
+                  }}
+                  key={item.id}
+                  item={item}
+                  src={item.img_url}
+                />
+              );
             })}
           </div>
-          <div>
+          {/* <div>
             <Pagination />
-          </div>
+          </div> */}
         </div>
         <div className="hidden md:block space-y-4 whitespace-nowrap pr-9">
           <h2 className="font-bold mb-1 text-gray-800">Relevance</h2>
@@ -99,6 +116,14 @@ export default function Home(props) {
         </div>
       </div>
       {showSell && <SellItemForm onCancelSellItemClick={handleSellCancel} />}
+      {showBuy && (
+        <ItemBuySection
+          item={buyItem}
+          handleClose={() => {
+            setShowBuy(false);
+          }}
+        />
+      )}
     </Layout>
   );
 }

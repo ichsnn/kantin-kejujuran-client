@@ -2,9 +2,9 @@ import React from "react";
 import itemImage from "../../public/bear-brand.webp";
 import Image from "next/image";
 
-const ItemCard = ({ item, src }) => {
+const ItemCard = ({ item, src, handleCardClick }) => {
   return (
-    <div className=" border shadow-md rounded-lg overflow-hidden cursor-pointer flex flex-col justify-between transition-all ease-in-out duration-300 hover:shadow-sky-200 hover:border-sky-200 w-full" title={item.name}>
+    <div onClick={handleCardClick} className=" border shadow-md rounded-lg overflow-hidden cursor-pointer flex flex-col justify-between transition-all ease-in-out duration-300 hover:shadow-sky-200 hover:border-sky-200 w-full" title={item.name}>
       <div className="flex items-center justify-center flex-1 h-40">
         <img src={src ? `http://localhost:5000/${src}` : itemImage} className="w-full object-cover" />
       </div>
