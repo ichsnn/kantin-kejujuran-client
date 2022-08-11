@@ -110,7 +110,7 @@ export default function Home(props) {
                   }}
                   key={item.id}
                   item={item}
-                  src={item.img_url || "/images/no-image.png"}
+                  src={item.img_url}
                 />
               );
             })}
