@@ -8,7 +8,7 @@ const Layout = (props) => {
     <div className="layout">
         <HeaderNav/>
         <main>{children}</main>
-        <footer className="container p-4 text-gray-900 font-semibold text-center">Created by ichsnn</footer>
+        <footer className="container p-4 text-gray-900 font-semibold text-center">10120724 - Ichsan Nulmuhlis</footer>
     </div>
   );
 };
