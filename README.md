@@ -6,7 +6,6 @@ Frontend / Client Side untuk submission Compfest SEA S14
 
 - Nextjs
 - Tailwindcss
-- RestAPI
 
 ## Fitur
 
